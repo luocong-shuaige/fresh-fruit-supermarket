@@ -23,7 +23,8 @@
 
 1. 登入
 
-   账号：admin	密码：admin
+   账号：guotao	密码：123456
+   
    账号：aaaaaa	密码：aaaaaa
 
 2.运行流程
