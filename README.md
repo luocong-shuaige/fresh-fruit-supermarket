@@ -45,7 +45,8 @@
 
 + 商品管理页面
 
-![image](https://github.com/luocong-shuaige/fresh-fruit-supermarket/assets/85004172/f18674bb-6032-4924-83aa-52087193b0f3)
+![image](https://github.com/luocong-shuaige/fresh-fruit-supermarket/assets/85004172/0a47917b-c0a5-4208-9dad-281b557feae1)
+
 
 
 
