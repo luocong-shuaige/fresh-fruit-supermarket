@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<link th:href="@{/ajax/libs/iCheck/custom.css}" rel="stylesheet"/>
+<link href="/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css" th:href="@{/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal" id="form-do-add">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">专家预约:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="id"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">专家:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="expertName"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">咨询者:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="questioner"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">面积:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="area"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">土地地址:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="address"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">农作物名称:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="plantName"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">土壤条件:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="soilCondition"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">作物条件:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="plantCondition"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">作物详细信息:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="plantDetail"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">作物详细信息:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="phone"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">留言:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="message"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">回答:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="answer"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="status"></div>
+        </div>
+        <div class="form-group">
+            <div class="form-control-static col-sm-offset-9">
+                <button type="button" class="btn btn-primary" onclick="addDoSave()">提交</button>
+                <button onclick="$.modal.close()" class="btn btn-danger" type="button">关闭</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript">
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;//时间选择器
+        laydate.render({
+            elem: '#inDate', type: 'date'
+        });
+    });
+
+    var prefix = "/tbReserve"
+    function addDoSave() {
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: prefix+"/addSave",
+            data: {
+                id: $("input[name='id']").val(),
+                expertName: $("input[name='expertName']").val(),
+                questioner: $("input[name='questioner']").val(),
+                area: $("input[name='area']").val(),
+                address: $("input[name='address']").val(),
+                plantName: $("input[name='plantName']").val(),
+                soilCondition: $("input[name='soilCondition']").val(),
+                plantCondition: $("input[name='plantCondition']").val(),
+                plantDetail: $("input[name='plantDetail']").val(),
+                phone: $("input[name='phone']").val(),
+                message: $("input[name='message']").val(),
+                answer: $("input[name='answer']").val(),
+                status: $("input[name='status']").val(),
+            },
+            async: false,
+            traditional: true,
+            error: function (request) {
+                $.modal.alertError("系统错误");
+            },
+            success: function (data) {
+                $.operate.saveSuccess(data);
+            }
+        });
+    }
+</script>
+</body>
+</html>

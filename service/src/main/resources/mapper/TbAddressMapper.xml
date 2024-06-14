@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qst.crop.dao.TbAddressMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.qst.crop.entity.TbAddress">
+        <id column="id" property="id" />
+        <result column="own_name" property="ownName" />
+        <result column="consignee" property="consignee" />
+        <result column="phone" property="phone" />
+        <result column="address_detail" property="addressDetail" />
+        <result column="is_default" property="isDefault" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, own_name, consignee, phone, address_detail, is_default
+    </sql>
+
+</mapper>

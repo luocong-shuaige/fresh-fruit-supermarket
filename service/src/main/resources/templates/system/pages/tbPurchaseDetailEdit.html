@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-do-edit" th:object="${tbPurchaseDetail}">
+        <input type="hidden" name="detailId" th:value="*{detailId}"><!-- 主键 -->
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="purchaseId" th:value="*{purchaseId}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="orderId" th:value="*{orderId}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="uninPrice" th:value="*{uninPrice}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="sumPrice" th:value="*{sumPrice}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="count" th:value="*{count}"></div>
+        </div>
+        <div class="form-group">
+            <div class="form-control-static col-sm-offset-9">
+                <button type="submit" class="btn btn-primary">提交</button>
+                <button onclick="$.modal.close()" class="btn btn-danger" type="button">关闭</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script th:src="@{/ajax/libs/select/select2.js}"></script>
+<script type="text/javascript">
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;//时间选择器
+        laydate.render({
+            elem: '#inDate', type: 'date'
+        });
+    });
+    var prefix = "/tbPurchaseDetail"
+    $("#form-do-edit").validate({
+        rules: {
+            detailId: {required: true},
+        },
+        messages: {
+            "detailId": {remote: "必填"}
+        },
+        submitHandler: function (form) {
+            $.operate.save(prefix + "/editSave", dataEdit());
+        }
+    });
+
+    function dataEdit() {
+        var detailId = $("input[name='detailId']").val();
+        var purchaseId = $("input[name='purchaseId']").val();
+        var orderId = $("input[name='orderId']").val();
+        var uninPrice = $("input[name='uninPrice']").val();
+        var sumPrice = $("input[name='sumPrice']").val();
+        var count = $("input[name='count']").val();
+        return {
+            "detailId":detailId,
+            "purchaseId":purchaseId,
+            "orderId":orderId,
+            "uninPrice":uninPrice,
+            "sumPrice":sumPrice,
+            "count":count,
+        }
+    }
+</script>
+</body>
+</html>

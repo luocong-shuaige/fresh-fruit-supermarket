@@ -1,0 +1,51 @@
+server:
+  port: 9090 # 后端运行起来的时候对外开放的端口，计算机应用程序都有一个对外开放的端口
+spring:
+  # 以下的数据库的配置，通常仅需要将密码改成自己的数据库密码
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/fresh_fruit_supermarket?serverTimezone=GMT%2B8&useUnicode=true&characterEncodeing=UTF-8&useSSL=false
+    username: root
+    password: 123456 # 通常仅需要将密码改成自己的数据库密码
+  jackson:
+    time-zone: GMT+8
+  # 以下的redis的配置，通常不需要改动什么，除非自己给redis设定了密码
+  redis:
+    host: localhost
+    port: 6379
+    password:
+  # 以下是servlet的配置，可以不配
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 500MB
+      max-request-size: 500MB
+  application:
+    name: uploadService8007
+  resources:
+    static-locations: file:d:/guotao/file/order,file:d:/guotao/file/avatar,file:d:/guotao/file/video
+  mvc:
+    static-path-pattern: /file/**
+application:
+  upload-path: d:/guotao/file
+# mybatis配置
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+  # 以下的打开配置，让数据库的运行日志打印在控制台
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  mapper-locations: mapper/**/*.xml
+  type-aliases-package: com.qst.crop.entity
+#nginx存放图片的路径
+file:
+  location:
+    directory: /usr/local/learn/docker/nginx/html/
+# 支付宝 appId,私钥，支付宝公钥
+alipay:
+  info:
+    appId:
+    privateKey:
+    alipayPublicKey:

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<link th:href="@{/ajax/libs/iCheck/custom.css}" rel="stylesheet"/>
+<link href="/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css" th:href="@{/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal" id="form-do-add">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">收货地址:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="id"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">属于哪个用户的地址:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="ownName"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">收货人:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="consignee"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">收货电话:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="phone"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">收货地址:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="addressDetail"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">是否默认，0，不是，默认是1:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="isDefault"></div>
+        </div>
+        <div class="form-group">
+            <div class="form-control-static col-sm-offset-9">
+                <button type="button" class="btn btn-primary" onclick="addDoSave()">提交</button>
+                <button onclick="$.modal.close()" class="btn btn-danger" type="button">关闭</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript">
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;//时间选择器
+        laydate.render({
+            elem: '#inDate', type: 'date'
+        });
+    });
+
+    var prefix = "/tbAddress"
+    function addDoSave() {
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: prefix+"/addSave",
+            data: {
+                id: $("input[name='id']").val(),
+                ownName: $("input[name='ownName']").val(),
+                consignee: $("input[name='consignee']").val(),
+                phone: $("input[name='phone']").val(),
+                addressDetail: $("input[name='addressDetail']").val(),
+                isDefault: $("input[name='isDefault']").val(),
+            },
+            async: false,
+            traditional: true,
+            error: function (request) {
+                $.modal.alertError("系统错误");
+            },
+            success: function (data) {
+                $.operate.saveSuccess(data);
+            }
+        });
+    }
+</script>
+</body>
+</html>

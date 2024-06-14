@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-do-edit" th:object="${tbBankUser}">
+        <input type="hidden" name="userName" th:value="*{userName}"><!-- 主键 -->
+        <div class="form-group">
+            <label class="col-sm-3 control-label">银行:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="bankId" th:value="*{bankId}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">密码:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="password" th:value="*{password}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">姓名:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="realName" th:value="*{realName}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">电话:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="phone" th:value="*{phone}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">角色:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="role" th:value="*{role}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">更新时间:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="updateTime" th:value="*{updateTime}"></div>
+        </div>
+        <div class="form-group">
+            <div class="form-control-static col-sm-offset-9">
+                <button type="submit" class="btn btn-primary">提交</button>
+                <button onclick="$.modal.close()" class="btn btn-danger" type="button">关闭</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script th:src="@{/ajax/libs/select/select2.js}"></script>
+<script type="text/javascript">
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;//时间选择器
+        laydate.render({
+            elem: '#inDate', type: 'date'
+        });
+    });
+    var prefix = "/tbBankUser"
+    $("#form-do-edit").validate({
+        rules: {
+            userName: {required: true},
+        },
+        messages: {
+            "userName": {remote: "必填"}
+        },
+        submitHandler: function (form) {
+            $.operate.save(prefix + "/editSave", dataEdit());
+        }
+    });
+
+    function dataEdit() {
+        var userName = $("input[name='userName']").val();
+        var bankId = $("input[name='bankId']").val();
+        var password = $("input[name='password']").val();
+        var realName = $("input[name='realName']").val();
+        var phone = $("input[name='phone']").val();
+        var role = $("input[name='role']").val();
+        var createTime = $("input[name='createTime']").val();
+        var updateTime = $("input[name='updateTime']").val();
+        return {
+            "userName":userName,
+            "bankId":bankId,
+            "password":password,
+            "realName":realName,
+            "phone":phone,
+            "role":role,
+            "createTime":createTime,
+            "updateTime":updateTime,
+        }
+    }
+</script>
+</body>
+</html>

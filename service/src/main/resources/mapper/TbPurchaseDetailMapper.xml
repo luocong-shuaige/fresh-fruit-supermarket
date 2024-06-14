@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qst.crop.dao.TbPurchaseDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.qst.crop.entity.TbPurchaseDetail">
+        <id column="detail_id" property="detailId" />
+        <result column="purchase_id" property="purchaseId" />
+        <result column="order_id" property="orderId" />
+        <result column="unin_price" property="uninPrice" />
+        <result column="sum_price" property="sumPrice" />
+        <result column="count" property="count" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        detail_id, purchase_id, order_id, unin_price, sum_price, count
+    </sql>
+
+</mapper>

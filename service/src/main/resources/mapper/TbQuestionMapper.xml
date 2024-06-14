@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qst.crop.dao.TbQuestionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.qst.crop.entity.TbQuestion">
+        <id column="id" property="id" />
+        <result column="expert_name" property="expertName" />
+        <result column="questioner" property="questioner" />
+        <result column="phone" property="phone" />
+        <result column="plant_name" property="plantName" />
+        <result column="title" property="title" />
+        <result column="question" property="question" />
+        <result column="answer" property="answer" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, expert_name, questioner, phone, plant_name, title, question, answer, status
+    </sql>
+
+</mapper>

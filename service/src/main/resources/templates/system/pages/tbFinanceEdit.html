@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-do-edit" th:object="${tbFinance}">
+        <input type="hidden" name="financeId" th:value="*{financeId}"><!-- 主键 -->
+        <div class="form-group">
+            <label class="col-sm-3 control-label">银行:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="bankId" th:value="*{bankId}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">登录名:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="ownName" th:value="*{ownName}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">姓名:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="realName" th:value="*{realName}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">电话:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="phone" th:value="*{phone}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">编码:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="idNum" th:value="*{idNum}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">状态:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="status" th:value="*{status}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="remark" th:value="*{remark}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="money" th:value="*{money}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="rate" th:value="*{rate}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="repayment" th:value="*{repayment}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="updateTime" th:value="*{updateTime}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="combinationName1" th:value="*{combinationName1}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="combinationPhone1" th:value="*{combinationPhone1}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="combinationIdnum1" th:value="*{combinationIdnum1}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="combinationName2" th:value="*{combinationName2}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="combinationPhone2" th:value="*{combinationPhone2}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="combinationIdnum2" th:value="*{combinationIdnum2}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="fileInfo" th:value="*{fileInfo}"></div>
+        </div>
+        <div class="form-group">
+            <div class="form-control-static col-sm-offset-9">
+                <button type="submit" class="btn btn-primary">提交</button>
+                <button onclick="$.modal.close()" class="btn btn-danger" type="button">关闭</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script th:src="@{/ajax/libs/select/select2.js}"></script>
+<script type="text/javascript">
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;//时间选择器
+        laydate.render({
+            elem: '#inDate', type: 'date'
+        });
+    });
+    var prefix = "/tbFinance"
+    $("#form-do-edit").validate({
+        rules: {
+            financeId: {required: true},
+        },
+        messages: {
+            "financeId": {remote: "必填"}
+        },
+        submitHandler: function (form) {
+            $.operate.save(prefix + "/editSave", dataEdit());
+        }
+    });
+
+    function dataEdit() {
+        var financeId = $("input[name='financeId']").val();
+        var bankId = $("input[name='bankId']").val();
+        var ownName = $("input[name='ownName']").val();
+        var realName = $("input[name='realName']").val();
+        var phone = $("input[name='phone']").val();
+        var idNum = $("input[name='idNum']").val();
+        var status = $("input[name='status']").val();
+        var remark = $("input[name='remark']").val();
+        var money = $("input[name='money']").val();
+        var rate = $("input[name='rate']").val();
+        var repayment = $("input[name='repayment']").val();
+        var createTime = $("input[name='createTime']").val();
+        var updateTime = $("input[name='updateTime']").val();
+        var combinationName1 = $("input[name='combinationName1']").val();
+        var combinationPhone1 = $("input[name='combinationPhone1']").val();
+        var combinationIdnum1 = $("input[name='combinationIdnum1']").val();
+        var combinationName2 = $("input[name='combinationName2']").val();
+        var combinationPhone2 = $("input[name='combinationPhone2']").val();
+        var combinationIdnum2 = $("input[name='combinationIdnum2']").val();
+        var fileInfo = $("input[name='fileInfo']").val();
+        return {
+            "financeId":financeId,
+            "bankId":bankId,
+            "ownName":ownName,
+            "realName":realName,
+            "phone":phone,
+            "idNum":idNum,
+            "status":status,
+            "remark":remark,
+            "money":money,
+            "rate":rate,
+            "repayment":repayment,
+            "createTime":createTime,
+            "updateTime":updateTime,
+            "combinationName1":combinationName1,
+            "combinationPhone1":combinationPhone1,
+            "combinationIdnum1":combinationIdnum1,
+            "combinationName2":combinationName2,
+            "combinationPhone2":combinationPhone2,
+            "combinationIdnum2":combinationIdnum2,
+            "fileInfo":fileInfo,
+        }
+    }
+</script>
+</body>
+</html>

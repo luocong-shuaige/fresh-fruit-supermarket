@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-do-edit" th:object="${tbPurchase}">
+        <input type="hidden" name="purchaseId" th:value="*{purchaseId}"><!-- 主键 -->
+        <div class="form-group">
+            <label class="col-sm-3 control-label">发布人:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="ownName" th:value="*{ownName}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">类型:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="purchaseType" th:value="*{purchaseType}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">订单金额:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="totalPrice" th:value="*{totalPrice}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">订单收货地址:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="address" th:value="*{address}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">需求状态:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="purchaseStatus" th:value="*{purchaseStatus}"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="updateTime" th:value="*{updateTime}"></div>
+        </div>
+        <div class="form-group">
+            <div class="form-control-static col-sm-offset-9">
+                <button type="submit" class="btn btn-primary">提交</button>
+                <button onclick="$.modal.close()" class="btn btn-danger" type="button">关闭</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script th:src="@{/ajax/libs/select/select2.js}"></script>
+<script type="text/javascript">
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;//时间选择器
+        laydate.render({
+            elem: '#inDate', type: 'date'
+        });
+    });
+    var prefix = "/tbPurchase"
+    $("#form-do-edit").validate({
+        rules: {
+            purchaseId: {required: true},
+        },
+        messages: {
+            "purchaseId": {remote: "必填"}
+        },
+        submitHandler: function (form) {
+            $.operate.save(prefix + "/editSave", dataEdit());
+        }
+    });
+
+    function dataEdit() {
+        var purchaseId = $("input[name='purchaseId']").val();
+        var ownName = $("input[name='ownName']").val();
+        var purchaseType = $("input[name='purchaseType']").val();
+        var totalPrice = $("input[name='totalPrice']").val();
+        var address = $("input[name='address']").val();
+        var purchaseStatus = $("input[name='purchaseStatus']").val();
+        var createTime = $("input[name='createTime']").val();
+        var updateTime = $("input[name='updateTime']").val();
+        return {
+            "purchaseId":purchaseId,
+            "ownName":ownName,
+            "purchaseType":purchaseType,
+            "totalPrice":totalPrice,
+            "address":address,
+            "purchaseStatus":purchaseStatus,
+            "createTime":createTime,
+            "updateTime":updateTime,
+        }
+    }
+</script>
+</body>
+</html>

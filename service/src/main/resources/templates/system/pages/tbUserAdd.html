@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<link th:href="@{/ajax/libs/iCheck/custom.css}" rel="stylesheet"/>
+<link href="/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css" th:href="@{/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal" id="form-do-add">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">用户表:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="userName"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">密码:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="password"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">姓名:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="nickName"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">电话:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="phone"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">编码:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="identityNum"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">地址:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="address"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">user普通用户，expert专家，admin管理员 , bank银行用户:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="role"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="updateTime"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">积分500:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="integral"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">信誉1，2，3，4，5:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="credit"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">头像:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="avatar"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="realName"></div>
+        </div>
+        <div class="form-group">
+            <div class="form-control-static col-sm-offset-9">
+                <button type="button" class="btn btn-primary" onclick="addDoSave()">提交</button>
+                <button onclick="$.modal.close()" class="btn btn-danger" type="button">关闭</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript">
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;//时间选择器
+        laydate.render({
+            elem: '#inDate', type: 'date'
+        });
+    });
+
+    var prefix = "/tbUser"
+    function addDoSave() {
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: prefix+"/addSave",
+            data: {
+                userName: $("input[name='userName']").val(),
+                password: $("input[name='password']").val(),
+                nickName: $("input[name='nickName']").val(),
+                phone: $("input[name='phone']").val(),
+                identityNum: $("input[name='identityNum']").val(),
+                address: $("input[name='address']").val(),
+                role: $("input[name='role']").val(),
+                createTime: $("input[name='createTime']").val(),
+                updateTime: $("input[name='updateTime']").val(),
+                integral: $("input[name='integral']").val(),
+                credit: $("input[name='credit']").val(),
+                avatar: $("input[name='avatar']").val(),
+                realName: $("input[name='realName']").val(),
+            },
+            async: false,
+            traditional: true,
+            error: function (request) {
+                $.modal.alertError("系统错误");
+            },
+            success: function (data) {
+                $.operate.saveSuccess(data);
+            }
+        });
+    }
+</script>
+</body>
+</html>

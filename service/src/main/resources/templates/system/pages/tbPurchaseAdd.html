@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<link th:href="@{/ajax/libs/iCheck/custom.css}" rel="stylesheet"/>
+<link href="/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css" th:href="@{/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal" id="form-do-add">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">订单表:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="purchaseId"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">发布人:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="ownName"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">类型:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="purchaseType"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">订单金额:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="totalPrice"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">订单收货地址:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="address"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">需求状态:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="purchaseStatus"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">:</label>
+            <div class="col-sm-8"><input class="form-control" type="text" name="updateTime"></div>
+        </div>
+        <div class="form-group">
+            <div class="form-control-static col-sm-offset-9">
+                <button type="button" class="btn btn-primary" onclick="addDoSave()">提交</button>
+                <button onclick="$.modal.close()" class="btn btn-danger" type="button">关闭</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript">
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;//时间选择器
+        laydate.render({
+            elem: '#inDate', type: 'date'
+        });
+    });
+
+    var prefix = "/tbPurchase"
+    function addDoSave() {
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: prefix+"/addSave",
+            data: {
+                purchaseId: $("input[name='purchaseId']").val(),
+                ownName: $("input[name='ownName']").val(),
+                purchaseType: $("input[name='purchaseType']").val(),
+                totalPrice: $("input[name='totalPrice']").val(),
+                address: $("input[name='address']").val(),
+                purchaseStatus: $("input[name='purchaseStatus']").val(),
+                createTime: $("input[name='createTime']").val(),
+                updateTime: $("input[name='updateTime']").val(),
+            },
+            async: false,
+            traditional: true,
+            error: function (request) {
+                $.modal.alertError("系统错误");
+            },
+            success: function (data) {
+                $.operate.saveSuccess(data);
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qst.crop.dao.TbOrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.qst.crop.entity.TbOrder">
+        <id column="order_id" property="orderId" />
+        <result column="title" property="title" />
+        <result column="price" property="price" />
+        <result column="content" property="content" />
+        <result column="order_status" property="orderStatus" />
+        <result column="type" property="type" />
+        <result column="picture" property="picture" />
+        <result column="own_name" property="ownName" />
+        <result column="cooperation_name" property="cooperationName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="address" property="address" />
+        <result column="version" property="version" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        order_id, title, price, content, order_status, type, picture, own_name, cooperation_name, create_time, update_time, address, version, deleted
+    </sql>
+
+</mapper>
